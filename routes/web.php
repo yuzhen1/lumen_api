@@ -22,7 +22,7 @@ $router->post('/deal/private_decode', 'DealController@private_decode');//公钥�
 $router->post('/deal/sign_verify', 'DealController@sign_verify'); //验签
 
 //注册登录
-$router->get('/login/register', 'LoginController@register');
+$router->post('/login/register', 'LoginController@register');
 $router->post('/login/login', 'LoginController@login');
 
 //ajax页面请求接口测试
