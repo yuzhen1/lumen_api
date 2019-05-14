@@ -11,8 +11,9 @@ use Illuminate\Support\Facades\Redis;
 class LoginController extends Controller{
     //注册
     public function register(request $request){
-        header("Access-Control-Allow-Origin: *");
-        echo 111;die;
+//        header("Access-Control-Allow-Origin: *");
+        $user_email=$request->input('user_email');
+        echo $user_email;die;
         $data = file_get_contents('php://input');
         $data2 = base64_decode($data);
         $public_key = openssl_pkey_get_public('file://'.storage_path('/app/keys/public.pem'));
