@@ -110,6 +110,7 @@ class LoginController extends Controller{
                         'token'=>$token
                     ]
                 ];
+//                dd($response);
                 return json_encode($response,JSON_UNESCAPED_UNICODE);
             }else{
                 $response=[
