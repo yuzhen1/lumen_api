@@ -105,9 +105,12 @@ class LoginController extends Controller{
                 Redis::expire($key,3600);
                 $response=[
                     'errno'=>0,
-                    'msg'=>'登录成功'
+                    'msg'=>'登录成功',
+                    'data'=>[
+                        'token'=>$token
+                    ]
                 ];
-                return $response;
+                return json_encode($response,JSON_UNESCAPED_UNICODE);
             }else{
                 $response=[
                     'errno'=>50003,
@@ -129,6 +132,11 @@ class LoginController extends Controller{
         $rand_str = Str::random(10);
         $token = substr(md5($user_id.time().$rand_str),5,15);
         return $token;
+    }
+
+    //个人中心
+    public function myself(){
+        echo __METHOD__;
     }
 
 }
