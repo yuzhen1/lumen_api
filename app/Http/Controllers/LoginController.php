@@ -89,6 +89,41 @@ class LoginController extends Controller{
         die(json_encode($response,JSON_UNESCAPED_UNICODE));
     }
 
+    //登录  不加密
+    public function login2(){
+        $data = $_POST;
+        $send_email = $data['user_email'];
+        //验证邮箱
+        $res = DB::table('user')->where(['user_email'=>$send_email])->first();
+//        var_dump($res);die;
+        if($res){
+            //验证密码
+            if($data['password']==$res->password){
+                $token =  $this->getLoginToken($res->user_id);//生成token
+                $key = "login_token:user_id:".$res->user_id;
+                Redis::set($key,$token);                        //存token
+                Redis::expire($key,3600);
+                $response=[
+                    'errno'=>0,
+                    'msg'=>'登录成功'
+                ];
+                return $response;
+            }else{
+                $response=[
+                    'errno'=>50003,
+                    'msg'=>'密码错误'
+                ];
+                return $response;
+            }
+        }else{
+            $response=[
+                'errno'=>50002,
+                'msg'=>'该用户不存在,请重新登录'
+            ];
+            return $response;
+        }
+    }
+
     //获取登录token
     public function getLoginToken($user_id){
         $rand_str = Str::random(10);

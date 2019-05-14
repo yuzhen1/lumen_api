@@ -24,6 +24,7 @@ $router->post('/deal/sign_verify', 'DealController@sign_verify'); //验签
 //注册登录
 $router->post('/login/register', 'LoginController@register');
 $router->post('/login/login', 'LoginController@login');
+$router->post('/login/login2', 'LoginController@login2');//不加密
 
 //ajax页面请求接口测试
 $router->get('/test/test', 'TestController@test');
