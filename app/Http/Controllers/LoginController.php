@@ -39,7 +39,7 @@ class LoginController extends Controller{
         if($res){
             $response=[
                 'errno'=>'50011',
-                'msg'=>'注册成功'
+                'msg'=>'注册成功,即将跳转至登录页面'
             ];
             return $response;
         }
