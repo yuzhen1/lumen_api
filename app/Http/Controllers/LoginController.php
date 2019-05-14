@@ -16,7 +16,8 @@ class LoginController extends Controller{
         $public_key = openssl_pkey_get_public('file://'.storage_path('/app/keys/public.pem'));
         openssl_public_decrypt($data2,$de_string,$public_key);
         $de_data = json_decode($de_string,true);
-        $email = $de_data['user_email'];;
+        $email = $de_data['user_email'];
+        $user_name = $de_data['user_name'];
         //验证邮箱
         $user_email = DB::table('user')->where(['user_email'=>$email])->first();
         if($user_email){
@@ -28,8 +29,8 @@ class LoginController extends Controller{
         };
         $password=password_hash($de_data['password'],PASSWORD_BCRYPT);
         $data = [
-            'user_name'=>$de_data['user_name'],
-            'user_email'=>$de_data['user_email'],
+            'user_name'=>$user_name,
+            'user_email'=>$email,
             'password'=>$password,
             'add_time'=>time(),
         ];
