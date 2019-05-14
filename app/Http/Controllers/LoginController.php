@@ -6,6 +6,7 @@ use App\UserModel;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Str;
+use Illuminate\Support\Facades\Redis;
 
 class LoginController extends Controller{
     //注册
@@ -57,8 +58,8 @@ class LoginController extends Controller{
                 $token = $this->getLoginToken($u->user_id);
                 $key = "login_token:user_id:".$u->user_id;
                 Redis::set($key,$token);
-                $get = Redis::get($key);
-                var_dump($get);die;
+//                $get = Redis::get($key);//取出存储的值
+//                var_dump($get);die;
                 Redis::expire($key,604800);
                 //生成token
                 $response=[
@@ -73,18 +74,14 @@ class LoginController extends Controller{
                 //登录失败
                 $response=[
                     'errno'=>50003,
-                    'msg'=>'密码不正确'
+                    'msg'=>'密码不正确,请重新登录'
                 ];
-                echo "密码不正确,请重新登录";
-                header("refresh:3,url=http://client.1809a.com/login/login");
             }
         }else{
             $response=[
                 'errno'=>50002,
-                'msg'=>'该用户不存在'
+                'msg'=>'该用户不存在,请重新登录'
             ];
-            echo "该用户不存在,请重新登录";
-            header("refresh:3,url=http://client.1809a.com/login/login");
         }
         die(json_encode($response,JSON_UNESCAPED_UNICODE));
     }
