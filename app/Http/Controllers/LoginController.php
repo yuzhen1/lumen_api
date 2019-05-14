@@ -11,7 +11,7 @@ use Illuminate\Support\Facades\Redis;
 class LoginController extends Controller{
     //注册
     public function register(request $request){
-//        header("Access-Control-Allow-Origin: *");
+        header("Access-Control-Allow-Origin: *");
 //        $user_email=$request->input('user_email');
 //        echo $user_email;die;
         echo "<pre>";print_r($_POST);echo "</pre>";die;
