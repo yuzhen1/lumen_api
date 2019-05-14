@@ -11,15 +11,15 @@ header("Access-Control-Allow-Origin: http://127.0.0.1:8848");
 class LoginController extends Controller{
     //注册
     public function register(request $request){
-        $data = file_get_contents('php://input');
-        $data2 = base64_decode($data);
-        $public_key = openssl_pkey_get_public('file://'.storage_path('/app/keys/public.pem'));
-        openssl_public_decrypt($data2,$de_string,$public_key);
-        $de_data = json_decode($de_string,true);
-        $email = $de_data['user_email'];
-        $user_name = $de_data['user_name'];
+//        $data = file_get_contents('php://input');
+//        $data2 = base64_decode($data);
+//        $public_key = openssl_pkey_get_public('file://'.storage_path('/app/keys/public.pem'));
+//        openssl_public_decrypt($data2,$de_string,$public_key);
+//        $de_data = json_decode($de_string,true);
+//        dd($de_data);
+        $de_data = $_POST;
         //验证邮箱
-        $user_email = DB::table('user')->where(['user_email'=>$email])->first();
+        $user_email = DB::table('user')->where(['user_email'=>$de_data['user_email']])->first();
         if($user_email){
             $response=[
                 'errno'=>'50010',
@@ -27,11 +27,11 @@ class LoginController extends Controller{
             ];
            return $response;
         };
-        $password=password_hash($de_data['password'],PASSWORD_BCRYPT);
+//        $password=password_hash($de_data['password'],PASSWORD_BCRYPT);
         $data = [
-            'user_name'=>$user_name,
-            'user_email'=>$email,
-            'password'=>$password,
+            'user_name'=>$de_data['user_name'],
+            'user_email'=>$de_data['user_email'],
+            'password'=>$de_data['password'],
             'add_time'=>time(),
         ];
         //入库
