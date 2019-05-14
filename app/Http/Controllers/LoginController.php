@@ -29,8 +29,7 @@ class LoginController extends Controller{
                 'errno'=>'50010',
                 'msg'=>'该邮箱已被注册'
             ];
-            header("refresh:3,url=http://client.1809a.com/login/reg");
-            die(json_encode($response,JSON_UNESCAPED_UNICODE));
+           return $response;
         };
         $password=password_hash($de_data['password'],PASSWORD_BCRYPT);
         $data = [
@@ -42,8 +41,11 @@ class LoginController extends Controller{
         //入库
         $res = UserModel::insertGetId($data);
         if($res){
-            echo "注册成功,即将跳转至登录页面";
-            header("refresh:3,url=http://client.1809a.com/login/login");
+            $response=[
+                'errno'=>'50011',
+                'msg'=>'注册成功'
+            ];
+            return $response;
         }
     }
 
