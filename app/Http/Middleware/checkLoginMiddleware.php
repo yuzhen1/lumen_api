@@ -17,8 +17,10 @@ class checkLoginMiddleware
     public function handle($request, Closure $next)
     {
         //验证token是否有效
+        $token =$_GET['token'];
         $user_id =$_GET['user_id'];
-//        $user_id = $_GET('user_id');
+var_dump($token);
+var_dump($user_id);
         if(empty($token) || empty($user_id)){
             $response=[
                 'error'=>50030,
@@ -28,6 +30,7 @@ class checkLoginMiddleware
         }
 
         $key = "login_token:user_id:".$user_id;
+        var_dump(Redis::get($key));
         if($token){
             $before_token = Redis::get($key);
             if($token!=$before_token){
