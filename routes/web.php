@@ -26,7 +26,7 @@ $router->post('/login/register', 'LoginController@register');
 $router->post('/login/login', 'LoginController@login');
 $router->post('/login/login2', 'LoginController@login2');//不加密
 
-$router->get('/login/myself', 'LoginController@myself');//个人中心
+$router->post('/login/myself', 'LoginController@myself');//个人中心
 //$router->post('login/myself', ['middleware' => 'checkLogin', function () {
 ////    echo 111;
 //}]);
