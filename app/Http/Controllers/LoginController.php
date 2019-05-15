@@ -141,7 +141,11 @@ class LoginController extends Controller{
 
     //个人中心
     public function myself(){
-        echo 111;
+        $arr = [
+            'errno'=>'ok',
+            'msg'=>'个人中心'
+        ];
+        return $arr;
     }
 
 }
