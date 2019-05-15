@@ -7,7 +7,9 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Str;
 use Illuminate\Support\Facades\Redis;
-header("Access-Control-Allow-Origin: http://127.0.0.1:8848");
+//header("Access-Control-Allow-Origin: *");
+//header('Access-Control-Allow-Methods:OPTIONS,GET,POST');
+//header('Access-Control-Allow-Headers:x-requested-with');
 class LoginController extends Controller{
     //注册
     public function register(request $request){
@@ -102,15 +104,17 @@ class LoginController extends Controller{
                 $token =  $this->getLoginToken($res->user_id);//生成token
                 $key = "login_token:user_id:".$res->user_id;
                 Redis::set($key,$token);                        //存token
-                Redis::expire($key,3600);
+                Redis::expire($key,604800);
+//                dd(Redis::get($key));//463f5c2331872b0
                 $response=[
                     'errno'=>0,
                     'msg'=>'登录成功',
                     'data'=>[
-                        'token'=>$token
+                        'token'=>$token,
+                        'user_id'=>$res->user_id
                     ]
                 ];
-//                dd($response);
+                dd($response);
                 return json_encode($response,JSON_UNESCAPED_UNICODE);
             }else{
                 $response=[

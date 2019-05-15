@@ -19,13 +19,28 @@ class checkLoginMiddleware
         $token = $_POST['token'];
         $user_id = $_POST['user_id'];
         $key = "login_token:user_id:".$user_id;
-        if(empty($token) || empty($user_id)){
+//        if(empty($token) || empty($user_id)){
+//            $response=[
+//                'error'=>50032,
+//                'msg'=>'参数不完整'
+//            ];
+//            die(json_encode($response,JSON_UNESCAPED_UNICODE));
+//        }
+        if(empty($token)){
             $response=[
-                'error'=>50032,
-                'msg'=>'参数不完整'
+                'error'=>5032,
+                'msg'=>'token不存在'
             ];
             die(json_encode($response,JSON_UNESCAPED_UNICODE));
         }
+        if(empty($user_id)){
+            $response=[
+                'error'=>50902,
+                'msg'=>'id不完整'
+            ];
+            die(json_encode($response,JSON_UNESCAPED_UNICODE));
+        }
+
         if($token){
             $before_token = Redis::get($key);
             if($token!=$before_token){
