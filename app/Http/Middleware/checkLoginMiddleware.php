@@ -17,8 +17,8 @@ class checkLoginMiddleware
     public function handle($request, Closure $next)
     {
         //验证token是否有效
-        $token =$request->input('token');
-        $user_id = $request->input('user_id');
+        $token =$_GET('token');
+        $user_id = $_GET('user_id');
         if(empty($token) || empty($user_id)){
             $response=[
                 'error'=>50030,
