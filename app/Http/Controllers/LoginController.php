@@ -40,7 +40,7 @@ class LoginController extends Controller{
         $res = UserModel::insertGetId($data);
         if($res){
             $response=[
-                'errno'=>'50011',
+                'errno'=>'0',
                 'msg'=>'注册成功,即将跳转至登录页面'
             ];
             return $response;
