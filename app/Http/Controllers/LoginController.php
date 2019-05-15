@@ -141,10 +141,26 @@ class LoginController extends Controller{
 
     //个人中心
     public function myself(){
-//        $token = $_POST['token'];
-//        $user_id = $_POST['user_id'];
-//        var_dump($token);
-        echo "<pre>";print_r($_POST);echo "</pre>";
+        $user_id = $_POST['user_id'];
+       $where = [
+           'user_id'=>$user_id
+       ];
+       $obj = DB::table('user')->where($where)->first();
+       if($obj){
+           $response = [
+               'errno'=>'0',
+               'msg'=>"success",
+               'user_name'=>$obj->user_name,
+               'user_email'=>$obj->user_email
+           ];
+           return $response;
+       }else{
+           $response = [
+               'errno'=>'50001',
+               'msg'=>'请登陆'
+           ];
+           return $response;
+       }
     }
 
 }

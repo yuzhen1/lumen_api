@@ -26,9 +26,13 @@ $router->post('/login/register', 'LoginController@register');
 $router->post('/login/login', 'LoginController@login');
 $router->post('/login/login2', 'LoginController@login2');//不加密
 
-$router->get('/login/myself', 'LoginController@myself');//个人中心
+$router->post('/login/myself', 'LoginController@myself');//个人中心
+//$router->post('myself',['middleware'=>['checkLogin'],'LoginController@myself']);
 //$router->post('login/myself', ['middleware' => 'checkLogin', function () {
-////    echo 111;
+////    return [];
 //}]);
+$router->group(['middleware' => 'checkLogin'], function () use ($router) {
+    $router->post('/myself',['myself'=>'LoginController@myself']);
+});
 //ajax页面请求接口测试
 $router->get('/test/test', 'TestController@test');
