@@ -141,11 +141,10 @@ class LoginController extends Controller{
 
     //个人中心
     public function myself(){
-        $arr = [
-            'errno'=>'ok',
-            'msg'=>'个人中心'
-        ];
-        return $arr;
+//        $token = $_POST['token'];
+//        $user_id = $_POST['user_id'];
+//        var_dump($token);
+        echo "<pre>";print_r($_POST);echo "</pre>";
     }
 
 }
