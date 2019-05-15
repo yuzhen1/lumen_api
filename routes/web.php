@@ -25,21 +25,10 @@ $router->post('/deal/sign_verify', 'DealController@sign_verify'); //验签
 $router->post('/login/register', 'LoginController@register');
 $router->post('/login/login', 'LoginController@login');
 $router->post('/login/login2', 'LoginController@login2');//不加密
-
-//$router->get('/login/myself', 'LoginController@myself');//个人中心
-//$router->post('myself',['middleware'=>['checkLogin'],'LoginController@myself']);
-//$router->post('login/myself', ['middleware' => 'checkLogin', function () {
-////    return [];
-//}]);
-
+//个人中心
 $router->group(['middleware' => 'checkLogin'], function () use ($router) {
     $router->get('/login/myself',['uses'=>'LoginController@myself']);
 });
 
-//$router->get('/myself',[
-//    'as'=>'profile',
-//    'user'=>'LoginController@myself',
-//    'middleware'=>'checkLogin'
-//]);
 //ajax页面请求接口测试
 $router->get('/test/test', 'TestController@test');
