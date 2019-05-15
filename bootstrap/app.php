@@ -66,7 +66,7 @@ $app->singleton(
 // ]);
     //中间件
     $app->routeMiddleware([
-         'checkLoginMiddleware' => \App\Http\Middleware\checkLoginMiddleware::class,
+         'checkLogin' => App\Http\Middleware\checkLoginMiddleware::class,
      ]);
 
 /*
