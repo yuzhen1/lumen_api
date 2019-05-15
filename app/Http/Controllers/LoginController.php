@@ -142,6 +142,7 @@ class LoginController extends Controller{
     //个人中心
     public function myself(){
         $user_id = $_GET['user_id'];
+//        echo $user_id;
        $where = [
            'user_id'=>$user_id
        ];
