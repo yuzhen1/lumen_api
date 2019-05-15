@@ -31,7 +31,7 @@ $router->post('/login/login2', 'LoginController@login2');//不加密
 //    $router->get('myself',['uses'=>'LoginController@myself']);
 //});
 $router->post('login/myself', ['middleware' => 'checkLogin', function () {
-    echo 111;
+//    echo 111;
 }]);
 //ajax页面请求接口测试
 $router->get('/test/test', 'TestController@test');
