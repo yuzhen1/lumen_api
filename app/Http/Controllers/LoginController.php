@@ -13,7 +13,7 @@ class LoginController extends Controller{
         $de_data = $_POST;
         $str = json_encode($de_data,true);
         $ch = curl_init();
-        curl_setopt($ch, CURLOPT_URL, "http://pass.verify.com/login/register");
+        curl_setopt($ch, CURLOPT_URL, "http://pass.verify.zyzyz.top/login/register");
         curl_setopt($ch, CURLOPT_RETURNTRANSFER, 1);
         curl_setopt($ch,CURLOPT_POST,1);
         curl_setopt($ch,CURLOPT_POSTFIELDS,$str);
@@ -71,7 +71,7 @@ class LoginController extends Controller{
         $data = $_POST;
         $str = json_encode($data,true);
         $ch = curl_init();
-        curl_setopt($ch, CURLOPT_URL, "http://pass.verify.com/login/login");
+        curl_setopt($ch, CURLOPT_URL, "http://pass.verify.zyzyz.top/login/login");
         curl_setopt($ch, CURLOPT_RETURNTRANSFER, 1);
         curl_setopt($ch,CURLOPT_POST,1);
         curl_setopt($ch,CURLOPT_POSTFIELDS,$str);
@@ -93,7 +93,7 @@ class LoginController extends Controller{
 //        echo $user_id;
 
         $ch = curl_init();
-        curl_setopt($ch, CURLOPT_URL, "http://pass.verify.com/login/myself");
+        curl_setopt($ch, CURLOPT_URL, "http://pass.verify.zyzyz.top/login/myself");
         curl_setopt($ch, CURLOPT_RETURNTRANSFER, 1);
         curl_setopt($ch,CURLOPT_POST,1);
         curl_setopt($ch,CURLOPT_POSTFIELDS,$user_id);
