@@ -114,7 +114,7 @@ class LoginController extends Controller{
                         'user_id'=>$res->user_id
                     ]
                 ];
-                dd($response);
+//                dd($response);
                 return json_encode($response,JSON_UNESCAPED_UNICODE);
             }else{
                 $response=[
