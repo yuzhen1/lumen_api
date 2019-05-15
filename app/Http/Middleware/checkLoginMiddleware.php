@@ -18,7 +18,6 @@ class checkLoginMiddleware
     {
         //验证token是否有效
         $user_id =$_GET['user_id'];
-        dd($user_id);
 //        $user_id = $_GET('user_id');
         if(empty($token) || empty($user_id)){
             $response=[
