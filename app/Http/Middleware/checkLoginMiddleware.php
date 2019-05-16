@@ -19,8 +19,8 @@ class checkLoginMiddleware
         //验证token是否有效
         $token =$_GET['token'];
         $user_id =$_GET['user_id'];
-var_dump($token);
-var_dump($user_id);
+        //var_dump($token);
+       // var_dump($user_id);
         if(empty($token) || empty($user_id)){
             $response=[
                 'error'=>50030,
@@ -29,8 +29,10 @@ var_dump($user_id);
             die(json_encode($response,JSON_UNESCAPED_UNICODE));
         }
 
-        $key = "login_token:user_id:".$user_id;
-        var_dump(Redis::get($key));
+        $key = "laravel_database_login_token:user_id:".$user_id;
+        //echo $key;
+      // $a=Redis::get($key);
+      // echo "token:";dd($a);
         if($token){
             $before_token = Redis::get($key);
             if($token!=$before_token){
@@ -41,8 +43,8 @@ var_dump($user_id);
                 die(json_encode($response,JSON_UNESCAPED_UNICODE));
             }else{
                 //存入日志
-                $info = date('Y-m-d H:i:s').'用户id为'.$user_id.'登录成功';
-                file_put_contents('logs/login.log',$info,FILE_APPEND);
+//                $info = date('Y-m-d H:i:s').'用户id为'.$user_id.'登录成功';
+//                file_put_contents('logs/login.log',$info,FILE_APPEND);
             }
         }else{
             $response=[
