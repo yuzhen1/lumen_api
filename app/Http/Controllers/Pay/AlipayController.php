@@ -17,8 +17,8 @@ class AlipayController extends Controller
         $this->gate_way = 'https://openapi.alipaydev.com/gateway.do';
         $this->notify_url = env('ALIPAY_NOTIFY_URL');
         $this->return_url = env('ALIPAY_RETURN_URL');
-        $this->rsaPrivateKeyFilePath = storage_path('app/keys/alipay/priv.key');    //应用私钥
-        $this->aliPubKey = storage_path('app/keys/alipay/pub.key'); //支付宝公钥
+        $this->rsaPrivateKeyFilePath = storage_path('app/keys/alipay/rsa_pri.pem');    //应用私钥
+        $this->aliPubKey = storage_path('app/keys/alipay/rsa_pub.pem'); //支付宝公钥
     }
     public function test()
     {
