@@ -12,50 +12,12 @@ class OrderController extends Controller{
     public function create(){
         $goods_id = $_GET['goods_id'];
         $user_id = $_GET['user_id'];
-        if(empty($user_id)){
-            $response=[
-                'errno'=>'50001',
-                'msg'=>'请先登录'
-            ];
-            return json_encode($response);
-        }
-        //检测是否选择商品
-        if(empty($goods_id)){
-            $response=[
-                'errno'=>'50011',
-                'msg'=>'请至少选择一件宝贝进行结算哦'
-            ];
-            return json_encode($response);
-        }
-        //处理goods_id
-        $id=explode(',',$goods_id);
-        $goodsInfo=DB::table('cart')
-            ->join('goods','cart.goods_id','=','goods.goods_id')
-            ->where('cart.car_status',1)
-            ->whereIn('cart.goods_id',$id)
-            ->get();
-        $countPrice = 0;
-        foreach($goodsInfo as $k=>$v){
-            $countPrice += $v->buy_num * $v->goods_price;
-        }
-        //生成订单号
-        $order_no = time() . rand(10000000, 99999999);
-        $data = [
+        $str = [
             'goods_id'=>$goods_id,
-            'order_no'=>$order_no,
-            'user_id'=>$user_id,
-            'order_amount'=>$countPrice,
-            'create_time'=>time()
+            'user_id'=>$user_id
         ];
-        $res = DB::table('order')->insertGetId($data);
-        if($res){
-            $response=[
-                'errno'=>0,
-                'msg'=>'创建订单成功'
-            ];
-            return $response;
-        }
-
+        $url = "http://pass.verify.zyzyz.top/car/car_add";
+        $this->curl($url,$str);
     }
 
     public function order_list(){
@@ -65,5 +27,17 @@ class OrderController extends Controller{
             ->where(['user_id'=>$user_id])
             ->get();
         return json_encode($orderInfo);
+    }
+
+    //CURL
+    public function curl($url,$str){
+        $ch = curl_init();
+        curl_setopt($ch, CURLOPT_URL, $url);
+        curl_setopt($ch, CURLOPT_RETURNTRANSFER, 1);
+        curl_setopt($ch,CURLOPT_POST,1);
+        curl_setopt($ch,CURLOPT_POSTFIELDS,$str);
+        $output = curl_exec($ch);
+        print_r($output);
+        curl_close($ch);
     }
 }

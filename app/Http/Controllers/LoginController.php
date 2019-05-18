@@ -12,14 +12,8 @@ class LoginController extends Controller{
     public function register(request $request){
         $de_data = $_POST;
         $str = json_encode($de_data,true);
-        $ch = curl_init();
-        curl_setopt($ch, CURLOPT_URL, "http://pass.verify.zyzyz.top/login/register");
-        curl_setopt($ch, CURLOPT_RETURNTRANSFER, 1);
-        curl_setopt($ch,CURLOPT_POST,1);
-        curl_setopt($ch,CURLOPT_POSTFIELDS,$str);
-        $output = curl_exec($ch);
-        print_r($output);
-        curl_close($ch);
+        $url="http://pass.verify.zyzyz.top/login/register";
+        $this->curl($url,$str);
     }
 
     //登录
@@ -70,14 +64,8 @@ class LoginController extends Controller{
     public function login2(){
         $data = $_POST;
         $str = json_encode($data,true);
-        $ch = curl_init();
-        curl_setopt($ch, CURLOPT_URL, "http://pass.verify.zyzyz.top/login/login");
-        curl_setopt($ch, CURLOPT_RETURNTRANSFER, 1);
-        curl_setopt($ch,CURLOPT_POST,1);
-        curl_setopt($ch,CURLOPT_POSTFIELDS,$str);
-        $output = curl_exec($ch);
-        print_r($output);
-        curl_close($ch);
+        $url = "http://pass.verify.zyzyz.top/login/login";
+        $this->curl($url,$str);
     }
 
     //获取登录token
@@ -89,17 +77,20 @@ class LoginController extends Controller{
 
     //个人中心
     public function myself(){
-        $user_id = $_GET['user_id'];
+        $str = $_GET['user_id'];
 //        echo $user_id;
-
+        $url="http://pass.verify.zyzyz.top/login/myself";
+        $this->curl($url,$str);
+    }
+    //CURL
+    public function curl($url,$str){
         $ch = curl_init();
-        curl_setopt($ch, CURLOPT_URL, "http://pass.verify.zyzyz.top/login/myself");
+        curl_setopt($ch, CURLOPT_URL, $url);
         curl_setopt($ch, CURLOPT_RETURNTRANSFER, 1);
         curl_setopt($ch,CURLOPT_POST,1);
-        curl_setopt($ch,CURLOPT_POSTFIELDS,$user_id);
+        curl_setopt($ch,CURLOPT_POSTFIELDS,$str);
         $output = curl_exec($ch);
         print_r($output);
         curl_close($ch);
     }
-
 }
