@@ -32,3 +32,16 @@ $router->group(['middleware' => 'checkLogin'], function () use ($router) {
 
 //ajax页面请求接口测试
 $router->get('/test/test', 'TestController@test');
+
+//商品
+$router->get('/goods/goods_list', 'Goods\GoodsController@goods_list');//商品列表
+$router->get('/goods/goods_detail', 'Goods\GoodsController@goods_detail');//商品详情
+
+//购物车
+$router->get('/car/car_add', 'Car\CarController@car_add');//加入购物车
+$router->get('/car/car_list', 'Car\CarController@car_list');//购物车列表
+$router->get('/car/getAllPrice', 'Car\CarController@getAllPrice');//获取总价格
+
+//订单
+$router->get('/order/create', 'Order\OrderController@create');//
+$router->get('/order/order_list', 'Order\OrderController@order_list');//订单列表
