@@ -12,7 +12,7 @@ class CarController extends Controller{
     public function car_add(){
         $data = $_GET;
 //       验证
-        if($data->buy_num==0){
+        if($data['buy_num']==0){
             $response=[
                 'errno'=>'40003',
                 'msg'=>'请选择购买数量'
