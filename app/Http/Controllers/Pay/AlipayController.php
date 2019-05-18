@@ -2,7 +2,7 @@
 namespace App\Http\Controllers\Pay;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
-use Illuminate\Support\Facades\DB;
+use App\OrderModel;
 class AlipayController extends Controller
 {
     public $app_id;
@@ -33,7 +33,7 @@ class AlipayController extends Controller
     {
         $oid = $_GET['order_no'];
         //验证订单状态 是否已支付 是否是有效订单
-        $order_info = DB::table('order')->where(['order_no'=>$oid])->first()->toArray();
+        $order_info = OrderModel::where(['order_no'=>$oid])->first()->toArray();
         echo '<pre>';print_r($order_info);echo '</pre>';echo '<hr>';
         //判断订单是否已被支付
         if($order_info['pay_time']>0){
