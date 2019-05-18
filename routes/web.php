@@ -49,4 +49,4 @@ $router->get('/order/order_list', 'Order\OrderController@order_list');//订单�
 //支付
 $router->get('/alipay/pay', 'Pay\AlipayController@pay');//支付宝支付
 $router->post('/alipay/notify', 'Pay\AlipayController@notify');       //支付宝异步通知
-$router->get('/alipay/return', 'Pay\AlipayController@aliReturn');       //支付宝同步通知
+$router->get('/alipay/aliReturn', 'Pay\AlipayController@aliReturn');       //支付宝同步通知
