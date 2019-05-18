@@ -45,3 +45,6 @@ $router->get('/car/getAllPrice', 'Car\CarController@getAllPrice');//获取总价
 //订单
 $router->get('/order/create', 'Order\OrderController@create');//
 $router->get('/order/order_list', 'Order\OrderController@order_list');//订单列表
+
+//支付
+$router->get('/alipay/alipay', 'Pay\AlipayController@alipay');//支付宝支付
