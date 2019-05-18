@@ -149,7 +149,4 @@ class AlipayController extends Controller
         echo '<pre>';print_r($_GET);echo '</pre>';
     }
 
-    public function success(){
-        echo '支付成功';
-    }
 }
