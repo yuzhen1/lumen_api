@@ -39,10 +39,10 @@ $router->get('/goods/goods_detail', 'Goods\GoodsController@goods_detail');//商�
 
 //购物车
 $router->group(['middleware' => 'checkLogin'], function () use ($router) {
-    $router->get('/car/car_list',['uses'=>'Car\CarController@car_list']);
+    $router->get('/car/car_add',['uses'=>'Car\CarController@car_add']);
 });
-$router->get('/car/car_add', 'Car\CarController@car_add');//加入购物车
-//$router->get('/car/car_list', 'Car\CarController@car_list');//购物车列表
+//$router->get('/car/car_add', 'Car\CarController@car_add');//加入购物车
+$router->get('/car/car_list', 'Car\CarController@car_list');//购物车列表
 $router->get('/car/getAllPrice', 'Car\CarController@getAllPrice');//获取总价格
 
 //订单
