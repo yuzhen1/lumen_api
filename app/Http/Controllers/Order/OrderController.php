@@ -12,12 +12,49 @@ class OrderController extends Controller{
     public function create(){
         $goods_id = $_GET['goods_id'];
         $user_id = $_GET['user_id'];
-        $str = [
+        if(empty($user_id)){
+            $response=[
+                'errno'=>'50001',
+                'msg'=>'请先登录'
+            ];
+            return json_encode($response);
+        }
+        //检测是否选择商品
+        if(empty($goods_id)){
+            $response=[
+                'errno'=>'50011',
+                'msg'=>'请至少选择一件宝贝进行结算哦'
+            ];
+            return json_encode($response);
+        }
+        //处理goods_id
+        $id=explode(',',$goods_id);
+        $goodsInfo=DB::table('cart')
+            ->join('goods','cart.goods_id','=','goods.goods_id')
+            ->where('cart.car_status',1)
+            ->whereIn('cart.goods_id',$id)
+            ->get();
+        $countPrice = 0;
+        foreach($goodsInfo as $k=>$v){
+            $countPrice += $v->buy_num * $v->goods_price;
+        }
+        //生成订单号
+        $order_no = time() . rand(10000000, 99999999);
+        $data = [
             'goods_id'=>$goods_id,
-            'user_id'=>$user_id
+            'order_no'=>$order_no,
+            'user_id'=>$user_id,
+            'order_amount'=>$countPrice,
+            'create_time'=>time()
         ];
-        $url = "http://pass.verify.zyzyz.top/car/car_add";
-        $this->curl($url,$str);
+        $res = DB::table('order')->insertGetId($data);
+        if($res){
+            $response=[
+                'errno'=>0,
+                'msg'=>'创建订单成功'
+            ];
+            return $response;
+        }
     }
 
     public function order_list(){
